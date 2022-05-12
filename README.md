@@ -1,38 +1,82 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# INIT
 
-## Getting Started
+## 1 init
 
-First, run the development server:
+yarn create next-app . --typescript
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## 2 add sass
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+npm install --save-dev sass
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## yarn lint
+## 3 yarn lint
 
 yarn lint ( !new version use lint so do'nt need to add it )
+
+## 4.1 eslint-config-prettier
+
+yarn add --dev eslint-config-prettier
+
+### 4.2 add prettier to eslint config
+
+>> .eslintrc.json
+   "extends": ["next/core-web-vitals", "prettier"]
+
+## 5 Path aliases and baseUrl
+
+>> tsconfig.json
+    "baseUrl": ".",
+    "paths": {
+      "@/pages/*": ["pages/*"],
+      "@/styles/*": ["styles/*"],
+      "@/components/*": ["components/*"]
+    }
+
+## 6 install husky
+
+npm install husky -D
+npm set-script prepare "husky install"
+npm run prepare
+npx husky add .husky/pre-commit "npm test" ( "#npm test" )
+
+## 7.1 install lint-staged
+
+npm install lint-staged -D
+
+## 7.2 
+>> root : .lintstagedrc.js
+const path = require('path');
+
+const buildEslintCommand = (filenames) =>
+  `next lint --fix --file ${filenames
+    .map((f) => path.relative(process.cwd(), f))
+    .join(' --file ')}`;
+
+module.exports = {
+  '*.{js,jsx,ts,tsx}': [buildEslintCommand],
+};
+*/
+
+## 7.3
+
+>> pre-commit :
+npx lint-staged
+
+## 8 .prettierrc - config prettier
+
+>> .prettierrc
+{
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "trailingComma": "all"
+}
+
+# ADD MATERIAL UI
+
+## 1 init
+
+yarn add @mui/material
+yarn add @fontsource/roboto
+yarn add @mui/icons-material
+
+yarn add @emotion/react @emotion/styled @emotion/server @emotion/cache
+
