@@ -80,3 +80,7 @@ yarn add @mui/icons-material
 
 yarn add @emotion/react @emotion/styled @emotion/server @emotion/cache
 
+## 2 add some files
+
+https://github.com/mui/material-ui/tree/master/examples/nextjs-with-typescript
+
